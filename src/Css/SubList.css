@@ -2,3 +2,12 @@
     border: rgba(53,108, 213) solid 2px;
     /* margin: 10px; */
 }
+
+.btn_sytle{
+    float: right;
+    margin: 3px;
+}
+.sub_bar{
+    width: 100%;
+    line-height: 30px;
+}

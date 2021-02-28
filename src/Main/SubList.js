@@ -6,7 +6,12 @@ import '../Css/SubList.css';
 
 function List(props) {
     const datas =  JSON.parse(localStorage.getItem('user_id'));
+    const [addStdList, setAddStdList] = useState(null);
     const [sub_list, setSub_list] = useState(JSON.parse(localStorage.getItem('data_sub')));
+    const [clickSubject, setClickSubject] = useState(null);
+    const [question, setQuestion] = useState(null);
+    console.log(JSON.parse(localStorage.getItem('user_id')));
+    console.log(datas);
     // console.log(data_listsSub);
 
     useEffect(()=> {
@@ -17,13 +22,16 @@ function List(props) {
     // useEffect(()=>{
     //   upLoad()
     // },[])
-    
+    // const addStdList = async () => {
+    //   await axios.post("url", {}).then(() => {});
+    // }
     const upLoad = () => {
             axios.post(`http://54.146.88.72:3000/list/subject/${datas}`)
             .then((res) => {
               console.log(res); 
               //세션 (문자열로만 저장이 되기 때문에 반드시 제이슨을 써야함)
               try {
+                console.log(JSON.stringify(res.data.result));
                   localStorage.setItem('data_sub', JSON.stringify(res.data.result));
                   setSub_list(JSON.parse(localStorage.getItem('data_sub')));
                 } catch (e) {
@@ -41,23 +49,40 @@ function List(props) {
           </>
         )
       }  
-      const group_check = () =>{
-        return <>
-        <p>sdfds</p>
-        </>
-      }
+      
       const lists = sub_list.map(item => {
+
+        let myColor = "rgba(204,204,204,0.8)";
+        if(item.classOnline){
+          myColor = "white";
+        }
+        console.log(item);
+        let ClickEvent = item.className == clickSubject ? (
+          <div className="sub_bar" onClick={(e) => listClick(e, item.className)} >
+            {item.className}
+            <button className='btn_sytle'> 참가 </button>
+            <button className='btn_sytle'> 자료실 </button>
+            <button className='btn_sytle'> 질문 </button>
+          </div>
+        ) : <div className="sub_bar" onClick={(e) => listClick(e, item.className)} > {item.className} </div>;
+        
         return (
-          <tr className='table_style' style={{
+          <tr  className='table_style' style={{
             display : 'block',
-            width : '200px',
-            backgroundColor: 'white',
+            width : '250px',
+            height: '30px',
+            backgroundColor: myColor,
             border: 'black soild 1px',
             margin: '10px 0px', }}>
-            <td><inupt type='submit'> {item.className} </inupt></td>
+             {ClickEvent}
           </tr>
         )
       });
+
+      const listClick = (e, value) => {
+        console.log(e.target);
+        setClickSubject( clickSubject == value ? null : value);
+      }
       console.log(lists);
       return (
         <table> {lists} </table>
@@ -66,9 +91,12 @@ function List(props) {
 
     return(
         <div className='List_Sub'>
-          <div>
+          <div className="SubList_Subject_Frame">
             <ListItem />
             {/* {listItems} */}
+            <div className="SubList_Subject_AddStudent">
+              {addStdList}
+            </div>
           </div>
         </ div>
     );

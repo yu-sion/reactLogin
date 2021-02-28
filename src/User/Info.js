@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
    
 function User_Info({setUserData, userData}) {
+    const user_datas = JSON.parse(localStorage.getItem('info_data')); 
 
     const history = useHistory(); 
     const handleData = (e)=>{
@@ -26,9 +27,6 @@ function User_Info({setUserData, userData}) {
     },[userData])
 
 
-    const usrName = userData.name;
-    const email = userData.mail;
-
       return (
     <div className="Main_Body">
             <div className="Main_Form">
@@ -38,11 +36,11 @@ function User_Info({setUserData, userData}) {
                         <tbody>
                             <tr>
                                 <td> 이름 </td>
-                                <td> <input type="text" name="name" defaultValue={usrName}/> </td>
+                                <td> <input type="text" name="name" defaultValue={user_datas.name}/> </td>
                             </tr>
                             <tr>
                                 <td> 이메일 </td>
-                                <td> <input type="text" name="email" value={email} /> </td>
+                                <td> <input type="text" name="email" value={user_datas.mail} /> </td>
                             </tr>
                             <tr>
                                 <td> 학번 </td>

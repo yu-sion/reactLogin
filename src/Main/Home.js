@@ -126,8 +126,8 @@ function Home({ userData, setUserData }) {
     }
 
     function group_Add(){
-
       setGroup_add(
+        group_add == null ? (
         <div className='set_group'  accept-charset="utf-8" >
              <div> <h1>그룹명</h1> </div>
              <div> <input className="Home_addSubejct_input" 
@@ -136,7 +136,7 @@ function Home({ userData, setUserData }) {
                      size="40"
                      placeholder="과목명 또는 그룹 이름을 적어주세요."/> </div>
               <div> <button onClick={subAdd}> 추가  </button> </div>
-        </div>
+        </div>) : null
       )
     }
 
@@ -154,6 +154,7 @@ function Home({ userData, setUserData }) {
       {(type == student)? <> : <> }
 
     */
+   console.log(JSON.parse(localStorage.getItem('user_id')))
   return (
     <div className="Home_body">
       <div className="Home_Header"> 

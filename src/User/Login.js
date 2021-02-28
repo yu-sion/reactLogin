@@ -11,30 +11,25 @@ import '../Css/Login.css';
 function SigninPage({setUserData, userData}) {
     const [isLogin, setIsLogin] = useState(false)
     const history = useHistory();
-    const responseGoogle = (response) => {    
+    const responseGoogle = async (response) => {    
         if(response){
             console.log(response);
             const data = {
-                mail : response.Fs.lt,
+                mail : response.profileObj.email,
+                name : response.profileObj.name,
             }
             // req.query.data.mail
-            axios.post('http://54.146.88.72:3000/index/login' , {data} )
+            await axios.post('http://54.146.88.72:3000/index/login' , {data : {mail : data.mail}} )
             .then((res) => {
                 console.log(res);
                 if(!res.data.result){
-                    setUserData({
-                        ...userData,
-                        mail : response.Fs.lt,
-                        name : response.Fs.sd
-                    });
-                    localStorage.setItem('user_Id', JSON.stringify(res.id));
-                    localStorage.setItem('data_user', JSON.stringify(res));
-                  
+                    localStorage.setItem('info_data', JSON.stringify(data));
                     alert('가입 되지 않았습니다.\n추가 정보를 기입해 주세요.');
                     history.push('Info');
                 }else {
                     alert('가입된 이용자 입니다.')
-                    
+                    localStorage.setItem('user_id', JSON.stringify(res.data.result[0].id));
+                    localStorage.setItem('data_user', JSON.stringify(res.data.result[0]));                    
                     history.push('Home');
                 }
             })   //axios 기능을 통한 post 사용및 name 값 전달.
