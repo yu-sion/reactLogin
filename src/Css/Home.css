@@ -1,0 +1,42 @@
+.Home_body{
+    max-width: 600px;
+    height: 800px;
+    max-height: 800px;
+    margin: 0 auto;
+    border: rgba(53,108, 213) solid 5px;
+}
+
+.Home_Header{
+    height: 150px;
+    position: relative;
+    /* background-color: bisque; */
+}
+
+.Home_Logo{
+    display: block;
+    width: 100px;
+    font-size: 50px;
+    /* background-color:blueviolet; */
+}
+
+.Home_userName{
+    width: 150px;
+    font-size: 20px;
+    position: absolute;
+    text-align: center;
+    top: 0px;
+    right: 0px;
+    /* background-color: brown; */
+}
+.Home_Logout_Btn, .Home_change_Btn {
+    margin: 2px;
+    float: right;
+}
+.Infromation_change_Main{
+/* background-color: cadetblue; */
+width: 300px;
+}
+
+.Home_Content{
+    margin: 0 auto;
+}
