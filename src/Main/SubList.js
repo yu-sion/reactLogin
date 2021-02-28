@@ -6,12 +6,10 @@ import '../Css/SubList.css';
 
 function List(props) {
     const datas =  JSON.parse(localStorage.getItem('user_id'));
-    const [addStdList, setAddStdList] = useState(null);
     const [sub_list, setSub_list] = useState(JSON.parse(localStorage.getItem('data_sub')));
     const [clickSubject, setClickSubject] = useState(null);
-    const [question, setQuestion] = useState(null);
-    console.log(JSON.parse(localStorage.getItem('user_id')));
-    console.log(datas);
+    const [sub_list_view, setSub_list_view] = useState(null); // 질문, 자료실, 수업 시작 등 클릭 시의 뷰 담당
+    const [question, setQuestion] = useState(null); //질문 데이터 저장
     // console.log(data_listsSub);
 
     useEffect(()=> {
@@ -19,12 +17,6 @@ function List(props) {
       ListItem()
     },[props.add])
 
-    // useEffect(()=>{
-    //   upLoad()
-    // },[])
-    // const addStdList = async () => {
-    //   await axios.post("url", {}).then(() => {});
-    // }
     const upLoad = () => {
             axios.post(`http://54.146.88.72:3000/list/subject/${datas}`)
             .then((res) => {
@@ -49,20 +41,32 @@ function List(props) {
           </>
         )
       }  
-      
-      const lists = sub_list.map(item => {
+      const qna_list = () => {
+        console.log(sub_list_view);
+        (sub_list_view == null) ? setSub_list_view(
+          <div className='sub_list_view'>
+            <div>
+              <p>질문</p>
+            </div>
+            <div>
+              <p>질문 리스트</p>
+            </div>
+          </div>
+        ) : setSub_list_view(null);
 
+      }
+      const lists = sub_list.map( (item) => {
         let myColor = "rgba(204,204,204,0.8)";
         if(item.classOnline){
           myColor = "white";
         }
-        console.log(item);
+        // console.log(item);
         let ClickEvent = item.className == clickSubject ? (
           <div className="sub_bar" onClick={(e) => listClick(e, item.className)} >
             {item.className}
             <button className='btn_sytle'> 참가 </button>
             <button className='btn_sytle'> 자료실 </button>
-            <button className='btn_sytle'> 질문 </button>
+            <button className='btn_sytle' onClick={qna_list}> 질문 </button>
           </div>
         ) : <div className="sub_bar" onClick={(e) => listClick(e, item.className)} > {item.className} </div>;
         
@@ -80,7 +84,6 @@ function List(props) {
       });
 
       const listClick = (e, value) => {
-        console.log(e.target);
         setClickSubject( clickSubject == value ? null : value);
       }
       console.log(lists);
@@ -93,11 +96,8 @@ function List(props) {
         <div className='List_Sub'>
           <div className="SubList_Subject_Frame">
             <ListItem />
-            {/* {listItems} */}
-            <div className="SubList_Subject_AddStudent">
-              {addStdList}
-            </div>
           </div>
+            {sub_list_view}
         </ div>
     );
 }

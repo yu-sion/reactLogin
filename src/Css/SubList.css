@@ -11,3 +11,21 @@
     width: 100%;
     line-height: 30px;
 }
+.List_Sub{
+    height: 300px;
+}
+.SubList_Subject_Frame{
+    float: left;
+    margin-left: 30px;
+    width: 45%;
+    height: 100%;
+    overflow: scroll;
+}
+
+.sub_list_view{
+    float: right;
+    margin-right: 30px;
+    width: 40%;
+    height: 100%;
+    border: rgba(53,108, 213) solid 2px;
+}
