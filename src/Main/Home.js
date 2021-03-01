@@ -11,6 +11,7 @@ function Home({ userData, setUserData }) {
   // 이름이 변경 되었을 때 바뀔 localStorage
   // 과목 추가시 띄울 변수
     const history = useHistory();
+    
     const [ formNode, setFormNode ] = useState(null) ;
     const [ group_add, setGroup_add] = useState(null);
     const user_Id = JSON.parse(localStorage.getItem('user_id')); 
@@ -173,7 +174,9 @@ function Home({ userData, setUserData }) {
       <div className="Home_Content"> 
         <div className="Home_Content_list_Subject"> 
            <div className="Home_Content_Option"> 
-              <div className="Home_Content_Option_addSub"> <button onClick={group_Add}> 그룹추가 </button> </div>
+              <div className="Home_Content_Option_addSub"> 
+                <button onClick={group_Add}> 그룹추가 </button> 
+              </div>
             </div>
          </div>
          <div className="Home_Content_addSubject"> 
